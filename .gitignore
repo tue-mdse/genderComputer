@@ -1,2 +1,8 @@
 
 .DS_Store
+
+*.svn-base
+
+nameLists/.svn/entries
+
+nameLists/.svn/all-wcprops
