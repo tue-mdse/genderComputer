@@ -1,7 +1,7 @@
 # Gender computer
 ---
 
-Python tool that tries to infer a person's gender from their `name` (first name) and `location` (country). For example, **Andrea** is a first name typically used by men in **Italy** and women in **Germany**, while **Bogdan** is a first name typically used by men irrespective of the country. Similarly, a **Russian** person called **Anna Akhmat** *ova* is more than likely a woman because of the *-ova* suffix.
+Python tool that tries to infer a person's gender from their `name` (first name) and `location` (country). For example, *Andrea* is a first name typically used by men in *Italy* and women in *Germany*, while *Bogdan* is a first name typically used by men irrespective of the country. Similarly, a *Russian* person called *Anna Akhmatova* is more than likely a woman because of the *-ova* suffix.
 
 
 ### Licenses
