@@ -10,13 +10,13 @@ The tool uses lists of `male` and `female` first names for different countries:
 - Diminutives: 
 	- http://en.wiktionary.org/wiki/Appendix:English_given_names
 - Afganistan:
-	- https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf UK naming practices guide
+	- UK naming practices guide https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf
 - Albania:
-	- https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf UK naming practices guide
+	- UK naming practices guide https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf
 - Australia:
-	- Department of Attorney General and Justice NSW, http://www.bdm.nsw.gov.au/births/popularBabyNames.htm
+	- Department of Attorney General and Justice NSW http://www.bdm.nsw.gov.au/births/popularBabyNames.htm
 - Belgium: 
-	- http://statbel.fgov.be/nl/modules/publications/statistiques/bevolking/prenoms_de_la_population_totale.jsp Voornamen van de bevolking op 1.1.2009 (XLS, 17.33 MB)
+	- Voornamen van de bevolking op 1.1.2009 (XLS, 17.33 MB) http://statbel.fgov.be/nl/modules/publications/statistiques/bevolking/prenoms_de_la_population_totale.jsp
 - Brazil:
 	- http://www.dicionariodenomesproprios.com.br/nomes-masculinos/ 
 	- http://www.dicionariodenomesproprios.com.br/nomes-femininos/
@@ -44,14 +44,15 @@ The tool uses lists of `male` and `female` first names for different countries:
 - Israel:
 	- http://www.learn-hebrew-names.com/Hebrew-names.aspx
 - Italy: 
-	- http://www3.istat.it/salastampa/comunicati/non_calendario/20100318_00/testointegrale20100318.pdf p.12
+	- page 12 from http://www3.istat.it/salastampa/comunicati/non_calendario/20100318_00/testointegrale20100318.pdf
 - Latvia:
 	- http://en.wiktionary.org/wiki/Appendix:Latvian_given_names
-	- http://en.wiktionary.org/wiki/Category:Latvian_male_given_names + also female
+	- http://en.wiktionary.org/wiki/Category:Latvian_male_given_names and http://en.wiktionary.org/wiki/Category:Latvian_female_given_names
 - Norway:
 	- Namnestatistikk, 2011, http://www.ssb.no/emner/00/navn/
 - Poland:
-	- http://chomikuj.pl/justynadow/s*c5*82owniki+imion/S*c5*81OWNIK+IMION+POLSKICH,263985157.pdf	- augmented with diminutives from http://en.wiktionary.org/wiki/Appendix:Polish_given_names
+	- http://chomikuj.pl/justynadow/s*c5*82owniki+imion/S*c5*81OWNIK+IMION+POLSKICH,263985157.pdf
+	- augmented with diminutives from http://en.wiktionary.org/wiki/Appendix:Polish_given_names
 - Romania:
 	- http://childnamesworld.com/romanian-boy-baby-names.php?religion=Romanian&gender=boy
 	- http://ro.wikipedia.org/wiki/List%C4%83_de_prenume_rom%C3%A2ne%C8%99ti
@@ -62,9 +63,9 @@ The tool uses lists of `male` and `female` first names for different countries:
 - Slovenia:
 	- http://www.stat.si/eng/imena.asp
 - Somalia
-	- https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf UK naming practices guide
+	- UK naming practices guide https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf
 - Spain:
-	- http://www.ine.es/daco/daco42/nombyapel/nombyapel.htm -> Nombres m·s frecuentes simples y exactos para total nacional y exactos por provincia de residencia
+	- Nombres mas frecuentes simples y exactos para total nacional y exactos por provincia de residencia http://www.ine.es/daco/daco42/nombyapel/nombyapel.htm
 - Sweden:
 	- http://www.scb.se/Pages/ProductTables____30919.aspx
 - Turkey:
