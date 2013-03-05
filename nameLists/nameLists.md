@@ -1,5 +1,4 @@
 ## Lists of first names for different countries
----
 
 - Diminutives: 
 	- http://en.wiktionary.org/wiki/Appendix:English_given_names
