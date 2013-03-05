@@ -5,7 +5,7 @@ Python tool that tries to infer a person's gender from their `name` (first name)
 
 ### Data provenance
 
-The tool uses lists of `male` and `female` first names for different countries. Whenever available, the data came from national statistics institutes and was accompanied by frequency information. See [this list](https://github.com/tue-mdse/genderComputer/tree/master/nameLists) for detailes about the source of data for each country.
+The tool uses lists of `male` and `female` first names for different countries. Whenever available, the data came from national statistics institutes and was accompanied by frequency information. See [this list](https://github.com/tue-mdse/genderComputer/blob/master/nameLists/nameLists.md) for detailes about the source of data for each country.
 
 
 
