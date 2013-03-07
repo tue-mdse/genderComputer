@@ -9,19 +9,19 @@ The tool uses lists of `male` and `female` first names for different countries. 
 
 The tool also uses the database of first names from all around the world provided together with `gender.c`, an open source C program for name-based gender inference (http://www.heise.de/ct/ftp/07/17/182/). We transform the database (i.e., the `nam_dict.txt` file shipped together with `gender.c`; see the archive on http://www.heise.de/ct/ftp/07/17/182/) into a Python dictionary using the `genderc_python.py` script.
 
+
+### Dependencies
+
+- `python-nameparser` http://code.google.com/p/python-nameparser/
+- `unidecode` https://pypi.python.org/pypi/Unidecode/
+
 ### Usage
 
-To use the tool simply create a new `GenderComputer` object:
+To use the tool simply create a new `GenderComputer` object and call the `resolveGender` method on a (`name`, `country`) tuple:
 
 ```python
 from genderComputer import GenderComputer
 gc = GenderComputer(os.path.abspath('./nameLists'))
-
-print gc.resolveGender('Ben W.', 'USA')
-> male
-
-print gc.resolveGender('w35l3y', 'Brazil')
-> male
 
 print gc.resolveGender('Alexei Matrosov', 'Russia')
 > male
@@ -29,15 +29,31 @@ print gc.resolveGender('Alexei Matrosov', 'Russia')
 print gc.resolveGender('Matrosov Alexei', 'Russia')
 > male
 
+print gc.resolveGender('Bogdan', None)
+> male
+
+print gc.resolveGender('w35l3y', 'Brazil')
+> male
+
 print gc.resolveGender('Ashley Maher', 'Australia')
 > female
 ```
 
-### Dependencies
+The tool works well for *clean* names, but may produce unexpected results otherwise:
 
-- `python-nameparser` http://code.google.com/p/python-nameparser/
-- `unidecode` https://pypi.python.org/pypi/Unidecode/
+python
+print gc.resolveGender('jasondavis', 'USA')
+> None
 
+print gc.resolveGender('aix', None)
+> female
+```
+
+### Reporting bugs
+
+Please use the [Issue Tracker](https://github.com/tue-mdse/genderComputer/issues) for reporting bugs and feature requests.
+
+Patches, bug fixes etc are welcome. Please fork the repository and create a pull request when done fixing/implementing the new feature.
 
 ### Licenses
 
