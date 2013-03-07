@@ -19,6 +19,18 @@ gc = GenderComputer(os.path.abspath('./nameLists'))
 
 print gc.resolveGender('Ben W.', 'USA')
 > male
+
+print gc.resolveGender('w35l3y', 'Brazil')
+> male
+
+print gc.resolveGender('Alexei Matrosov', 'Russia')
+> male
+
+print gc.resolveGender('Matrosov Alexei', 'Russia')
+> male
+
+print gc.resolveGender('Ashley Maher', 'Australia')
+> female
 ```
 
 ### Dependencies
