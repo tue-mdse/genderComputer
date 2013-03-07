@@ -17,13 +17,12 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
-from isoFilter import *
+import re
 from dictUtils import MyDict
 from unicodeMagic import UnicodeReader
-from nameparser import HumanName
 from unidecode import unidecode
-from filters import only_greek_chars, only_cyrillic_chars
-from filters import leet2eng, inverseNameParts, splitCamelCase
+from nameUtils import only_greek_chars, only_cyrillic_chars
+from nameUtils import leet2eng, inverseNameParts, extractFirstName
 from filters import normaliseCountryName
 
 
@@ -47,9 +46,8 @@ def formatOutput(gender, simplified=True):
 		return gender
 
 
+'''Load the male and female name lists for <country>'''
 def loadData(country, dataPath, hasHeader=True):
-	'''Load the male and female name lists for <country>'''
-	
 	def loadGenderList(gender, country, dataPath, hasHeader):
 		fd = open(os.path.join(dataPath, '%s%sUTF8.csv' % (country, gender)), 'rb')
 		reader = UnicodeReader(fd)
@@ -87,7 +85,6 @@ def loadData(country, dataPath, hasHeader=True):
 	males = loadGenderList('Male', country, dataPath, hasHeader)
 	females = loadGenderList('Female', country, dataPath, hasHeader)	
 	return males, females
-
 
 
 class GenderComputer():
@@ -463,6 +460,7 @@ class GenderComputer():
 		return formatOutput(gender, simplified)
 	
 	
+	'''Simple check for gender-specific words (e.g., girl)'''
 	def initialCheck(self, firstName):
 		if firstName in self.blackList or len(firstName) < 2:
 			return 'blacklist'
@@ -477,6 +475,7 @@ class GenderComputer():
 			if firstName.endswith(word) or firstName.startswith(word):
 				return 'male'
 		return None
+	
 	
 	''''Try to resolve gender based on <firstName>.
 	Restrict search to a given <country>.'''
@@ -541,33 +540,30 @@ class GenderComputer():
 	
 	
 	
-
-	
-	
-	
+	'''Main gender resolution function. Process:
+	- if name is written in Cyrillic or Greek, transliterate
+	- if country in {Russia, Belarus, ...}, check suffix
+		* name might be inversed, so also try inverse if direct fails
+	- extract first name and try to resolve
+		* name might be inversed, so also try inverse if direct fails
+	- assume name is in fact username, and try different tricks:
+		* if country in {The Netherlands, ..}, look for vd, van, ..
+		* try to guess name from vbogdan and bogdanv
+	- if still nothing, inverse and try first name again (maybe country was empty)'''
 	def resolveGender(self, name, country):
-		'''Main gender resolution function. Process:
-			- if name is written in Cyrillic or Greek, transliterate
-			- if country in {Russia, Belarus, ...}, check suffix
-			* name might be inversed, so also try inverse if direct fails
-			- extract first name and try to resolve
-			* name might be inversed, so also try inverse if direct fails
-			- assume name is in fact username, and try different tricks:
-			* if country in {The Netherlands, ..}, look for vd, van, ..
-			* try to guess name from vbogdan and bogdanv
-			- if still nothing, inverse and try first name again (maybe country was empty)
-			'''
 		'''Check if name is written in Cyrillic or Greek script, and transliterate'''
 		if only_cyrillic_chars(name) or only_greek_chars(name):
 			name = unidecode(name)
 		
+		'''Initial check for gender-specific words at the beginning of the name'''
 		f = name.split()[0]
 		if f in self.maleWords:
 			return 'male'
 		elif f in self.femaleWords:
 			return 'female'
 		
-		firstName = self.extractFirstName(name, 'direct')
+		'''Extract first name from name string'''
+		firstName = extractFirstName(name, 'direct')
 		
 		if country is not None:
 			'''Start with suffixes
@@ -590,7 +586,7 @@ class GenderComputer():
 				if gender is not None:
 					return gender
 				
-				gender = self.resolveFirstName(self.extractFirstName(name, 'inverse'), country, True)
+				gender = self.resolveFirstName(extractFirstName(name, 'inverse'), country, True)
 				if gender is not None:
 					if gender == 'blacklist':
 						return None
@@ -631,7 +627,7 @@ class GenderComputer():
 			
 			'''I can't believe I'm trying leet'''
 			nameL = leet2eng(name)
-			gender = self.resolveFirstName(self.extractFirstName(nameL, 'direct'), country, True)
+			gender = self.resolveFirstName(extractFirstName(nameL, 'direct'), country, True)
 			if gender is not None:
 				if gender == 'blacklist':
 					return None
@@ -639,7 +635,7 @@ class GenderComputer():
 			
 			'''Try also the unidecoded version'''
 			dname = unidecode(name)
-			gender = self.resolveFirstName(self.extractFirstName(dname, 'direct'), country, True)
+			gender = self.resolveFirstName(extractFirstName(dname, 'direct'), country, True)
 			if gender is not None:
 				if gender == 'blacklist':
 					return None
@@ -653,7 +649,7 @@ class GenderComputer():
 			return gender
 		'''Try also unidecoded version'''
 		dname = unidecode(name)
-		gender = self.resolveFirstNameOverall(self.extractFirstName(dname, 'direct'), True)
+		gender = self.resolveFirstNameOverall(extractFirstName(dname, 'direct'), True)
 		if gender is not None:
 			if gender == 'blacklist':
 				return None
@@ -673,21 +669,7 @@ class GenderComputer():
 				if gender == 'blacklist':
 					return None
 				return gender
-		
-		# Inverse and try again
-#		gender = self.resolveFirstNameOverall(self.extractFirstName(name, 'inverse'), True)
-#		if gender is not None:
-#			if gender == 'blacklist':
-#				return None
-#			print 'inverse first name', gender
-#			return gender
-#		# Try also unidecoded version
-#		gender = self.resolveFirstNameOverall(self.extractFirstName(dname, 'inverse'), True)
-#		if gender is not None:
-#			if gender == 'blacklist':
-#				return None
-#			return gender
-		
+				
 		return None
 	
 
@@ -701,14 +683,6 @@ if __name__=="__main__":
 	dataPath = os.path.abspath(".")
 	gc = GenderComputer(os.path.join(dataPath, 'nameLists'))
 	
-#	print gc.resolveGender(u'Alex Beisley', None)
-#	print gc.resolveGender(u'Jean-Marie Favre', None)
-#	print gc.resolveGender(u'Alex Che', None)
-#	print gc.resolveGender(u'Alex Gold', None)
-#	print gc.resolveGender(u'Alex Bath', None)
-#	print gc.resolveGender(u'Cosmina', None)
-#	exit()
-		
 	print 'Test suite 1'
 	for (name, country) in testSuite1:
 		print [unidecode(name), country], gc.resolveGender(name, country)

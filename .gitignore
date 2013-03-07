@@ -6,3 +6,5 @@
 nameLists/.svn/entries
 
 nameLists/.svn/all-wcprops
+
+*.pyc
