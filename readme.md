@@ -41,7 +41,7 @@ print gc.resolveGender('Ashley Maher', 'Australia')
 
 The tool works well for *clean* names, but may produce unexpected results otherwise:
 
-python
+```python
 print gc.resolveGender('jasondavis', 'USA')
 > None
 
