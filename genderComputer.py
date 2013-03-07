@@ -98,9 +98,6 @@ class GenderComputer():
 		'''gender.c, already lowercase'''
 		self.genderDict = MyDict(os.path.join(self.dataPath, 'gender.dict'))
 		
-		self.cyrillic_letters = {}
-		self.greek_letters = {}
-		
 		'''Order of countries (columns) in the 
 		nam_dict.txt file shipped together with gender.c'''
 		self.countriesOrder = {
@@ -278,7 +275,7 @@ class GenderComputer():
 		'''Diminutives list'''
 		fd = open(os.path.join(self.dataPath, 'diminutives.csv'), 'rb')
 		reader = UnicodeReader(fd)
-		self.diminutives = MyDict()
+		self.diminutives = {}
 		for row in reader:
 			mainName = row[0].strip().lower()
 			for diminutive in row[1:]:
@@ -304,32 +301,28 @@ class GenderComputer():
 		print 'Finished initialization'
 	
 	
+	'''Look <firstName> (and potentially its diminutives) up for <country>.
+	Decide gender based on frequency.'''
 	def frequencyBasedLookup(self, firstName, country, withDiminutives=False):
-		# firstName = firstName.lower()
-		dims = [firstName]
+		dims = set([firstName])
 		if withDiminutives:
 			try:
 				dims = self.diminutives[firstName] # Includes firstName
 				dims.add(firstName)
 			except:
 				pass
-#		print dims
 		
 		countMale = 0.0
 		countFemale = 0.0
 		for name in dims:
 			try:
 				countMale += float(self.nameLists[country]['male'][name])
-			# print name, 'male', float(self.nameLists[country]['male'][name])
 			except:
 				pass
 			try:
 				countFemale += float(self.nameLists[country]['female'][name])
-			# print name, 'female', float(self.nameLists[country]['female'][name])
 			except:
 				pass
-		
-		# print countMale, countFemale
 		
 		if countMale > 0:
 			if countFemale > 0:
@@ -356,20 +349,21 @@ class GenderComputer():
 			else:
 				gender = None
 		
-		# print gender
 		return gender
 	
 	
+	'''Wrapper for <frequencyBasedLookup> that checks if data for the query <country>
+	exists; can format the output.'''
 	def countryLookup(self, firstName, country, withDiminutives, simplified=True):
 		if country in self.nameLists.keys():
 			gender = self.frequencyBasedLookup(firstName, country, withDiminutives)
 			return formatOutput(gender, simplified)
 		return None
 	
+	'''Checks whether a given <fullName> for a given <country>
+	is <gender> (male/female).'''
 	def checkSuffix(self, fullName, country, gender):
-		# print 'checking', fullName, country, gender
 		for suffix in self.suffixes[country][gender]['include']:
-			# print '  ', suffix
 			if fullName.endswith(suffix):
 				for badSuffix in self.suffixes[country][gender]['exclude']:
 					if fullName.endswith(badSuffix):
@@ -377,9 +371,10 @@ class GenderComputer():
 				return gender
 		return None
 	
+	'''Given <fullName>, checks both male and female 
+	name suffixes and infers gender for <country>.'''
 	def suffixLookup(self, fullName, country):
-		# print 'looking up suffix for', fullName, country
-		if country in self.suffixes.keys():
+		if self.suffixes.has_key(country):
 			male = self.checkSuffix(fullName, country, 'male')
 			if male is not None:
 				return male
@@ -390,10 +385,10 @@ class GenderComputer():
 			return None
 	
 	
+	'''Search for a given <firstName> in the gender.c database.
+	strict=True 	: look only in <country>
+	simplified=True : reduce 'mostly male' to 'male' and 'mostly female' to 'female' '''
 	def genderDotCLookup(self, firstName, country, strict=True, simplified=True):
-		'''Search for a given <firstName> in the gender.c database.
-		strict=True : 		look only in <country>
-		simplified=True : 	reduce 'mostly male' to 'male' and 'mostly female' to 'female' '''
 		gender = None
 		genderCountry = None
 		country = normaliseCountryName(country)
@@ -468,7 +463,7 @@ class GenderComputer():
 		return formatOutput(gender, simplified)
 	
 	
-	def hacks(self, firstName):
+	def initialCheck(self, firstName):
 		if firstName in self.blackList or len(firstName) < 2:
 			return 'blacklist'
 		elif firstName in self.maleWords:
@@ -483,52 +478,56 @@ class GenderComputer():
 				return 'male'
 		return None
 	
+	''''Try to resolve gender based on <firstName>.
+	Restrict search to a given <country>.'''
 	def resolveFirstName(self, firstName, country, withDiminutives):
-		gender = self.hacks(firstName)
+		'''Start with easy checks. If successful 
+		then return gender directly, otherwise continue'''
+		gender = self.initialCheck(firstName)
 		if gender is not None:
 			return gender
-		# print firstName, country
 		
-		# If I have a list for that country, start with it
+		'''If I have a list for that country, start with it'''
 		if country in self.nameLists.keys():
 			gender = self.countryLookup(firstName, country, withDiminutives, simplified=True)
 			if gender is not None:
 				return gender
-		# print 'not in list'
 		
-		# Try gender.c next (strict mode = country-dependent)
+		'''Try gender.c next (strict mode = country-dependent)'''
 		gender = self.genderDotCLookup(firstName, country, strict=True, simplified=True)
 		if gender is not None:
-			# print 'gender.c', gender
 			return gender
-		
-		# # I might have the name in gender.c, but for a different country
-		# gender = self.genderDotCLookup(firstName, country, strict=False, simplified=True)
 		
 		return None
 	
+	
+	''''Try to resolve gender based on <firstName>.
+	Look in all countries and resort to arbitrage.'''
 	def resolveFirstNameOverall(self, firstName, withDiminutives):
-		gender = self.hacks(firstName)
+		'''Start with easy checks. If successful 
+		then return gender directly, otherwise continue'''
+		gender = self.initialCheck(firstName)
 		if gender is not None:
 			return gender
 		
+		'''Try each available country list in turn,
+		and record frequency information.'''
 		genders = set()
 		arbiter = {}
 		for country in self.nameLists.keys():
 			gender = self.countryLookup(firstName, country, withDiminutives, simplified=True)
 			if gender is not None:
+				genders.add(gender)
 				try:
 					arbiter[gender] += self.countryStats[country]
 				except:
 					arbiter[gender] = self.countryStats[country]
-#				print country, self.countryStats[country], gender
-			if gender is not None:
-				genders.add(gender)
 		
+		'''Keep the gender with the highest total count
+		(frequency) aggregated across all countries.'''
 		l = [(g,c) for g, c in arbiter.items()]
 		if len(l):
 			ml = max(l, key=lambda pair:pair[1])
-#			print l, ml
 			gender = ml[0]
 			return gender
 					
@@ -536,62 +535,13 @@ class GenderComputer():
 #		if len(genders) == 1:
 #			return list(genders)[0]
 		
-		# I might have the name in gender.c, but for a different country
+		'''I might have the name in gender.c, but for a different country'''
 		gender = self.genderDotCLookup(firstName, country, strict=False, simplified=True)
 		return gender
 	
 	
 	
-	def getFirstNameFromHumanName(self, humanName, order):
-		if (order == 'direct'):
-			return humanName.first
-		else: #order == 'inverse'
-			return humanName.last
-	
-	def getFirstNameFromSplitName(self, splitName, order):
-		if (order == 'direct'):
-			return splitName[0]
-		else: #order == 'inverse'
-			return splitName[-1]
-	
-	def extractFirstName(self, so_name, order):
-		name = ' '.join(so_name.split('.'))
-		oldname = name
-		name = re.sub("\d+", "", name)
-		if not len(name):
-			name = re.sub("\d+", "_", oldname)
-		name = ' '.join(name.split('_'))
-#		name = ' '.join(name.split('-'))
-#		print '[%s]'%name
-		
-		# Use the Python parser
-		try:
-			firstName = self.getFirstNameFromHumanName(HumanName(name), order)
-		except:
-			firstName = self.getFirstNameFromSplitName(name.split(), order)
-#		print '[%s]'%firstName
-		
-		# If fail, use heuristics
-		if firstName.strip() == name.strip():
-			# firstName('Ben Voigt') = 'Ben Voigt'!!!
-			if len(name.split()) == 2:
-				firstName = self.getFirstNameFromSplitName(name.split(), order)
-			else:
-				# Try CamelCase
-				uncamel = ' '.join(splitCamelCase(name).split('_'))
-				if uncamel != name:
-					try:
-						firstName = HumanName(uncamel).first
-						if len(firstName.split()) == 2:
-							firstName = self.getFirstNameFromSplitName(firstName.split(), order)
-					except:
-						firstName = self.getFirstNameFromSplitName(uncamel.split(), order)
-		
-		if firstName == 'Mc':
-			firstName = ''
-		if len(firstName) == 1:
-			firstName = ''
-		return firstName.lower()
+
 	
 	
 	
