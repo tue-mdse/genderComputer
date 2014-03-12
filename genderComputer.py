@@ -173,10 +173,10 @@ class GenderComputer():
 			self.nameLists[country]['male'], self.nameLists[country]['female'] = loadData(country, self.dataPath, hasHeader=False)
 		
 		'''Exceptions (approximations)'''
-		malesFrance, femalesFrance = loadData('Wallonia', self.dataPath, False)
-		self.nameLists['France'] = {}
-		self.nameLists['France']['male'] 	= malesFrance
-		self.nameLists['France']['female'] 	= femalesFrance
+		#malesFrance, femalesFrance = loadData('Wallonia', self.dataPath, False)
+		#self.nameLists['France'] = {}
+		#self.nameLists['France']['male'] 	= malesFrance
+		#self.nameLists['France']['female'] 	= femalesFrance
 		
 		malesNL, femalesNL = loadData('Frisia', self.dataPath, False)
 		self.nameLists['The Netherlands'] = {}
