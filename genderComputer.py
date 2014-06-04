@@ -17,6 +17,7 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
+import os
 import re
 from dictUtils import MyDict
 from unicodeMagic import UnicodeReader
