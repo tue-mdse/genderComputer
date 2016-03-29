@@ -164,7 +164,7 @@ class GenderComputer():
 		self.nameLists = {}
 		
 		'''Name lists per country'''
-		listOfCountries = ['Afganistan', 'Albania', 'Australia', 'Belgium', 'Brazil', 
+		listOfCountries = ['Afghanistan', 'Albania', 'Australia', 'Belgium', 'Brazil', 
 						'Canada', 'Czech', 'Finland', 'Greece', 'Hungary', 'India', 'Iran', 
 						'Ireland', 'Israel', 'Italy', 'Latvia', 'Norway', 'Poland', 'Romania', 
 						'Russia', 'Slovenia', 'Somalia', 'Spain', 'Sweden', 'Turkey', 'UK', 
@@ -192,7 +192,7 @@ class GenderComputer():
 		'''Gender-specific words'''
 		self.maleWords = ['Mr.', 'mr.', 'Mr', 'mr', 'Sir', 'sir', 'Captain', 'captain', 'wizard', 
 						'warrior', 'hillbilly', 'beer', 'Mister', 'Lord', 'Duke', 'Baron', 'coolguy']
-		self.femaleWords = ['girl', 'grrl', 'grrrl', 'miss', 'Miss']
+		self.femaleWords = ['girl', 'grrl', 'grrrl', 'miss', 'Miss', 'Mrs.']
 		
 		'''Suffixes'''
 		self.suffixes = {}
