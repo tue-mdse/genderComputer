@@ -2,7 +2,7 @@
 
 - Diminutives: 
 	- http://en.wiktionary.org/wiki/Appendix:English_given_names
-- Afganistan:
+- Afghanistan:
 	- UK naming practices guide https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf
 - Albania:
 	- UK naming practices guide https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf
@@ -58,7 +58,8 @@
 - Somalia
 	- UK naming practices guide https://www.fbiic.gov/public/2008/nov/Naming_practice_guide_UK_2006.pdf
 - Spain:
-	- Nombres mas frecuentes simples y exactos para total nacional y exactos por provincia de residencia http://www.ine.es/daco/daco42/nombyapel/nombyapel.htm
+	- Nombres mas frecuentes simples y exactos para total nacional y exactos por provincia de residencia
+ http://www.ine.es/daco/daco42/nombyapel/nombyapel.htm
 - Sweden:
 	- http://www.scb.se/Pages/ProductTables____30919.aspx
 - Turkey:
