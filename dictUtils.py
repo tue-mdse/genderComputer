@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 """Some useful utilities for working with dictionaries"""
 
 import pickle
-import types
 
 
 
@@ -28,11 +27,11 @@ def isList(obj):
 	This function does not return true if the object supplied
 	is a UserList object.
 	"""
-	return type(obj)==types.ListType
+	return type(obj)==list
 
 def isTuple(obj):
 	"isTuple(obj) -> Returns true if obj is a Python tuple."
-	return type(obj)==types.TupleType
+	return type(obj)==tuple
 
 def isPySeq(obj):
 	"""isPySeq(obj) -> Returns true if obj is a Python list or a Python tuple.
@@ -48,7 +47,7 @@ def isLongString(obj):
 	This function does not return true if the object supplied is
 	a UserString object.
 	"""
-	return type(obj)==types.StringType and len(obj)>1
+	return type(obj)==str and len(obj)>1
 
 
 
@@ -57,12 +56,12 @@ class MyDict:
 	def __init__(self, path=None, encod=None):
 		self.data = {}
 		if path is not None:
-			fdict = open(path, "r")
+			fdict = open(path, "rb")
 			if encod is not None:
 				dict1 = pickle.load(fdict, encoding=encod)
 			else:
 				dict1 = pickle.load(fdict)
-			print "Loaded dictionary from %s" % path
+			print("Loaded dictionary from %s" % path)
 			fdict.close()
 			self.data = dict1
 	
@@ -88,9 +87,9 @@ class MyDict:
 			self.data[key].append(value)
 			
 	def save(self, path):
-		fdict = open(path, "w")
+		fdict = open(path, "wb")
 		pickle.dump(self.data, fdict)
-		print "Wrote dictionary to %s" % path
+		print("Wrote dictionary to %s" % path)
 		fdict.close()
 		
 	def saveAsCSV(self, path):
@@ -123,7 +122,7 @@ class MyDict:
 			f.write('%s\n' % rs)
 				
 		f.close()
-		print "Wrote dictionary to %s" % path
+		print("Wrote dictionary to %s" % path)
 		
 		
 	def __getitem__(self, key):
