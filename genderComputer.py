@@ -90,9 +90,12 @@ def loadData(country, dataPath, hasHeader=True):
 
 
 class GenderComputer():
-	def __init__(self, nameListsPath):
+	def __init__(self, nameListsPath=None):
 		'''Data path'''
-		self.dataPath = os.path.abspath(nameListsPath)
+		if nameListsPath:
+			self.dataPath = os.path.abspath(nameListsPath)
+		else:
+			self.dataPath = os.path.join(os.path.dirname(__file__), "nameLists")
 		
 		'''gender.c, already lowercase'''
 		self.genderDict = MyDict(os.path.join(self.dataPath, 'gender.dict'))

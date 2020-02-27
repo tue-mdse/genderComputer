@@ -21,18 +21,18 @@ To use the tool simply create a new `GenderComputer` object and call the `resolv
 
 ```python
 from genderComputer import GenderComputer
-gc = GenderComputer(os.path.abspath('./nameLists'))
+gc = GenderComputer()
 
-print gc.resolveGender('Alexei Matrosov', 'Russia')
+print(gc.resolveGender('Alexei Matrosov', 'Russia'))
 > male
 
-print gc.resolveGender('Matrosov Alexei', 'Russia')
+print(gc.resolveGender('Matrosov Alexei', 'Russia'))
 > male
 
-print gc.resolveGender('Bogdan', None)
+print(gc.resolveGender('Bogdan', None))
 > male
 
-print gc.resolveGender('w35l3y', 'Brazil')
+print(gc.resolveGender('w35l3y', 'Brazil'))
 > male
 
 print gc.resolveGender('Ashley Maher', 'Australia')
@@ -42,10 +42,10 @@ print gc.resolveGender('Ashley Maher', 'Australia')
 The tool works well for *clean* names, but may produce unexpected results otherwise:
 
 ```python
-print gc.resolveGender('jasondavis', 'USA')
+print(gc.resolveGender('jasondavis', 'USA'))
 > None
 
-print gc.resolveGender('aix', None)
+print(gc.resolveGender('aix', None))
 > female
 ```
 
