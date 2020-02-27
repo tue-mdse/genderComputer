@@ -23,86 +23,86 @@ import os
 "Non-iso" unicode chars are represented as follows'''
 
 charMap = {
-    '<A/>':unichr(256),
-    '<a/>':unichr(257),
-    '<¬>':unichr(258),
-    '<‚>':unichr(259),
-    '<A,>':unichr(260),
-    '<a,>':unichr(261),
-    '<C¥>':unichr(262),
-    '<c¥>':unichr(263),
-    '<C^>':unichr(268),
-    '<CH>':unichr(268),
-    '<c^>':unichr(269),
-    '<ch>':unichr(269),
-    '<d¥>':unichr(271),
-    '<–>':unichr(272),
-    '<DJ>':unichr(272),
-    '<>':unichr(273),
-    '':unichr(273),
-    '<dj>':unichr(273),
-    '<E/>':unichr(274),
-    '<e/>':unichr(275),
-    '<E∞>':unichr(278),
-    '<e∞>':unichr(279),
-    '<E,>':unichr(280),
-    '<e,>':unichr(281),
-    '< >':unichr(282),
-    '<Í>':unichr(283),
-    '<G^>':unichr(286),
-    '<g^>':unichr(287),
-    '<G,>':unichr(290),
-    '<g¥>':unichr(291),
-    '<I/>':unichr(298),
-    '<i/>':unichr(299),
-    '<I∞>':unichr(304),
-    '<i>':unichr(305),
-    '<IJ>':unichr(306),
-    '<ij>':unichr(307),
-    '<K,>':unichr(310),
-    '<k,>':unichr(311),
-    '<L,>':unichr(315),
-    '<l,>':unichr(316),
-    '<L¥>':unichr(317),
-    '<l¥>':unichr(318),
-    '<L/>':unichr(321),
-    '<l/>':unichr(322),
-    '<N,>':unichr(325),
-    '<n,>':unichr(326),
-    '<N^>':unichr(327),
-    '<n^>':unichr(328),
-    '<÷>':unichr(336),
-    '<ˆ>':unichr(337),
-#    'å':unichr(338),
-    '<OE>':unichr(338),
-#   'ú':unichr(339),
-    '<oe>':unichr(339),
-    '<R^>':unichr(344),
-    '<r^>':unichr(345),
-    '<S,>':unichr(350),
-    '<s,>':unichr(351),
-#    'ä':unichr(352),
-    '<S^>':unichr(352),
-    '<SCH>':unichr(352),
-    '<SH>':unichr(352),
-#    'ö':unichr(353),
-    '<s^>':unichr(353),
-    '<sch>':unichr(353),
-    '<sh>':unichr(353),
-    '<T,>':unichr(354),
-    '<t,>':unichr(355),
-    '<t¥>':unichr(357),
-    '<U/>':unichr(362),
-    '<u/>':unichr(363),
-    '<U∞>':unichr(366),
-    '<u∞>':unichr(367),
-    '<U,>':unichr(370),
-    '<u,>':unichr(371),
-    '<Z∞>':unichr(379),
-    '<z∞>':unichr(380),
-    '<Z^>':unichr(381),
-    '<z^>':unichr(382),
-    '<ﬂ>':unichr(7838),
+    '<A/>':chr(256),
+    '<a/>':chr(257),
+    '<¬>':chr(258),
+    '<‚>':chr(259),
+    '<A,>':chr(260),
+    '<a,>':chr(261),
+    '<C¥>':chr(262),
+    '<c¥>':chr(263),
+    '<C^>':chr(268),
+    '<CH>':chr(268),
+    '<c^>':chr(269),
+    '<ch>':chr(269),
+    '<d¥>':chr(271),
+    '<–>':chr(272),
+    '<DJ>':chr(272),
+    '<>':chr(273),
+    '':chr(273),
+    '<dj>':chr(273),
+    '<E/>':chr(274),
+    '<e/>':chr(275),
+    '<E∞>':chr(278),
+    '<e∞>':chr(279),
+    '<E,>':chr(280),
+    '<e,>':chr(281),
+    '< >':chr(282),
+    '<Í>':chr(283),
+    '<G^>':chr(286),
+    '<g^>':chr(287),
+    '<G,>':chr(290),
+    '<g¥>':chr(291),
+    '<I/>':chr(298),
+    '<i/>':chr(299),
+    '<I∞>':chr(304),
+    '<i>':chr(305),
+    '<IJ>':chr(306),
+    '<ij>':chr(307),
+    '<K,>':chr(310),
+    '<k,>':chr(311),
+    '<L,>':chr(315),
+    '<l,>':chr(316),
+    '<L¥>':chr(317),
+    '<l¥>':chr(318),
+    '<L/>':chr(321),
+    '<l/>':chr(322),
+    '<N,>':chr(325),
+    '<n,>':chr(326),
+    '<N^>':chr(327),
+    '<n^>':chr(328),
+    '<÷>':chr(336),
+    '<ˆ>':chr(337),
+#    'å':chr(338),
+    '<OE>':chr(338),
+#   'ú':chr(339),
+    '<oe>':chr(339),
+    '<R^>':chr(344),
+    '<r^>':chr(345),
+    '<S,>':chr(350),
+    '<s,>':chr(351),
+#    'ä':chr(352),
+    '<S^>':chr(352),
+    '<SCH>':chr(352),
+    '<SH>':chr(352),
+#    'ö':chr(353),
+    '<s^>':chr(353),
+    '<sch>':chr(353),
+    '<sh>':chr(353),
+    '<T,>':chr(354),
+    '<t,>':chr(355),
+    '<t¥>':chr(357),
+    '<U/>':chr(362),
+    '<u/>':chr(363),
+    '<U∞>':chr(366),
+    '<u∞>':chr(367),
+    '<U,>':chr(370),
+    '<u,>':chr(371),
+    '<Z∞>':chr(379),
+    '<z∞>':chr(380),
+    '<Z^>':chr(381),
+    '<z^>':chr(382),
+    '<ﬂ>':chr(7838),
 }
 
 dataPath = os.path.abspath('.')
@@ -134,9 +134,8 @@ g.close()
 
 '''Read the data into a Python dictionary'''
 
-from unicodeMagic import UnicodeReader
 f = open(os.path.join(dataPath, 'nameLists', 'nam_dict2.txt'), 'rb')
-reader = UnicodeReader(f)
+reader = csv.reader(f, delimiter=';', dialect=csv.excel)
 
 genderDict = {}
 
@@ -162,7 +161,7 @@ for row in reader:
                 else:
                     names = [name]
                 for name in names:
-                    if genderDict.has_key(name):
+                    if name in genderDict:
                         genderDict[name].append([mf, frequencies])
                     else:
                         genderDict[name] = [[mf, frequencies]]
@@ -171,21 +170,21 @@ for row in reader:
     
 for [name, frequencies] in shortNames:
     shortName, longName = name.split()
-    if genderDict.has_key(shortName) and not genderDict.has_key(longName):
+    if shortName in genderDict and longName not in genderDict:
         for nameList in genderDict[shortName]:
-            if genderDict.has_key(longName):
+            if longName in genderDict:
                 genderDict[longName].append(nameList)
             else:
                 genderDict[longName] = [nameList]
             
-    elif genderDict.has_key(longName) and not genderDict.has_key(shortName):
+    elif longName in genderDict and shortName not in genderDict:
         for nameList in genderDict[longName]:
-            if genderDict.has_key(shortName):
+            if shortName in genderDict:
                 genderDict[shortName].append(nameList)
             else:
                 genderDict[shortName] = [nameList]
             
-print len(genderDict.keys()), 'names in dictionary'
+print(len(genderDict.keys()), 'names in dictionary')
 
 
 import pickle

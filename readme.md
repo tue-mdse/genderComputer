@@ -1,7 +1,6 @@
 # Gender computer
-===
 
-Python tool that tries to infer a person's gender from their `name` (mostly first name) and `location` (country). For example, *Andrea* is a first name typically used by men in *Italy* and women in *Germany*, while *Bogdan* is a first name typically used by men irrespective of the country. Similarly, a *Russian* person called *Anna Akhmatova* is more than likely a woman because of the *-ova* suffix.
+Gender computer is a Python tool that tries to infer a person's gender from their `name` (mostly first name) and `location` (country). For example, *Andrea* is a first name typically used by men in *Italy* and women in *Germany*, while *Bogdan* is a first name typically used by men irrespective of the country. Similarly, a *Russian* person called *Anna Akhmatova* is more than likely a woman because of the *-ova* suffix.
 
 ### Data provenance
 
@@ -12,6 +11,7 @@ The tool also uses the database of first names from all around the world provide
 
 ### Dependencies
 
+- Python 3
 - `python-nameparser` http://code.google.com/p/python-nameparser/
 - `unidecode` https://pypi.python.org/pypi/Unidecode/
 
@@ -21,18 +21,18 @@ To use the tool simply create a new `GenderComputer` object and call the `resolv
 
 ```python
 from genderComputer import GenderComputer
-gc = GenderComputer(os.path.abspath('./nameLists'))
+gc = GenderComputer()
 
-print gc.resolveGender('Alexei Matrosov', 'Russia')
+print(gc.resolveGender('Alexei Matrosov', 'Russia'))
 > male
 
-print gc.resolveGender('Matrosov Alexei', 'Russia')
+print(gc.resolveGender('Matrosov Alexei', 'Russia'))
 > male
 
-print gc.resolveGender('Bogdan', None)
+print(gc.resolveGender('Bogdan', None))
 > male
 
-print gc.resolveGender('w35l3y', 'Brazil')
+print(gc.resolveGender('w35l3y', 'Brazil'))
 > male
 
 print gc.resolveGender('Ashley Maher', 'Australia')
@@ -42,10 +42,10 @@ print gc.resolveGender('Ashley Maher', 'Australia')
 The tool works well for *clean* names, but may produce unexpected results otherwise:
 
 ```python
-print gc.resolveGender('jasondavis', 'USA')
+print(gc.resolveGender('jasondavis', 'USA'))
 > None
 
-print gc.resolveGender('aix', None)
+print(gc.resolveGender('aix', None))
 > female
 ```
 

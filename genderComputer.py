@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # This Python file uses the following encoding: utf-8
 
 """Copyright 2012-2013
@@ -19,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
 import os
 import re
+import csv
 from dictUtils import MyDict
-from unicodeMagic import UnicodeReader
 from unidecode import unidecode
 from nameUtils import only_greek_chars, only_cyrillic_chars
 from nameUtils import leet2eng, inverseNameParts, extractFirstName
@@ -50,8 +51,8 @@ def formatOutput(gender, simplified=True):
 '''Load the male and female name lists for <country>'''
 def loadData(country, dataPath, hasHeader=True):
 	def loadGenderList(gender, country, dataPath, hasHeader):
-		fd = open(os.path.join(dataPath, '%s%sUTF8.csv' % (country, gender)), 'rb')
-		reader = UnicodeReader(fd)
+		fd = open(os.path.join(dataPath, '%s%sUTF8.csv' % (country, gender)), 'r')
+		reader = csv.reader(fd, delimiter=';', dialect=csv.excel)
 		names = {}
 		if hasHeader:
 			unused_header = reader.next()
@@ -65,20 +66,20 @@ def loadData(country, dataPath, hasHeader=True):
 			except:
 				'''If second column does not exist, default to count=1'''
 				count = 1
-				if names.has_key(name):
+				if name in names:
 					'''If here then I've seen this name before, modulo case.
 					Only count once (there is no frequency information anyway)'''
 					count = 0
-			if names.has_key(name):
+			if name in names:
 				names[name] += count
 			else:
 				names[name] = count
 		fd.close()
 		
 		'''Add versions without diacritics'''
-		for name in names.keys():
+		for name in list(names.keys()):
 			dname = unidecode(name)
-			if not names.has_key(dname):
+			if dname not in names:
 				names[dname] = names[name]
 
 		return names
@@ -89,9 +90,12 @@ def loadData(country, dataPath, hasHeader=True):
 
 
 class GenderComputer():
-	def __init__(self, nameListsPath):
+	def __init__(self, nameListsPath=None):
 		'''Data path'''
-		self.dataPath = os.path.abspath(nameListsPath)
+		if nameListsPath:
+			self.dataPath = os.path.abspath(nameListsPath)
+		else:
+			self.dataPath = os.path.join(os.path.dirname(__file__), "nameLists")
 		
 		'''gender.c, already lowercase'''
 		self.genderDict = MyDict(os.path.join(self.dataPath, 'gender.dict'))
@@ -271,8 +275,8 @@ class GenderComputer():
 						 'North Korea','South Korea']
 		
 		'''Diminutives list'''
-		fd = open(os.path.join(self.dataPath, 'diminutives.csv'), 'rb')
-		reader = UnicodeReader(fd)
+		fd = open(os.path.join(self.dataPath, 'diminutives.csv'), 'r')
+		reader = csv.reader(fd, delimiter=';', dialect=csv.excel)
 		self.diminutives = {}
 		for row in reader:
 			mainName = row[0].strip().lower()
@@ -284,8 +288,8 @@ class GenderComputer():
 					self.diminutives[diminutive].add(mainName)
 					
 		'''Distribution of StackOverflow users per different countries'''			
-		fd = open(os.path.join(self.dataPath, 'countryStats.csv'), 'rb')
-		reader = UnicodeReader(fd)
+		fd = open(os.path.join(self.dataPath, 'countryStats.csv'), 'r')
+		reader = csv.reader(fd, delimiter=';', dialect=csv.excel)
 		self.countryStats = {}
 		total = 0.0
 		for row in reader:
@@ -296,7 +300,7 @@ class GenderComputer():
 		for country in self.countryStats.keys():
 			self.countryStats[country] = self.countryStats[country] / total
 		
-		print 'Finished initialization'
+		print('Finished initialization')
 	
 	
 	'''Look <firstName> (and potentially its diminutives) up for <country>.
@@ -372,7 +376,7 @@ class GenderComputer():
 	'''Given <fullName>, checks both male and female 
 	name suffixes and infers gender for <country>.'''
 	def suffixLookup(self, fullName, country):
-		if self.suffixes.has_key(country):
+		if country in self.suffixes:
 			male = self.checkSuffix(fullName, country, 'male')
 			if male is not None:
 				return male
@@ -674,21 +678,22 @@ class GenderComputer():
 		return None
 	
 
-
-
-
-if __name__=="__main__":
+def runTests():
 	import os
 	from testSuites import testSuite1, testSuite2
 	
 	dataPath = os.path.abspath(".")
 	gc = GenderComputer(os.path.join(dataPath, 'nameLists'))
 	
-	print 'Test suite 1'
+	print('Test suite 1')
 	for (name, country) in testSuite1:
-		print [unidecode(name), country], gc.resolveGender(name, country)
+		print([unidecode(name), country], gc.resolveGender(name, country))
 	
-	print
-	print 'Test suite 2'
+	print()
+	print('Test suite 2')
 	for (name, country) in testSuite2:
-		print [unidecode(name), country], gc.resolveGender(name, country)
+		print([unidecode(name), country], gc.resolveGender(name, country))
+
+
+if __name__=="__main__":
+	runTests()
