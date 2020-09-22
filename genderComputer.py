@@ -170,7 +170,7 @@ class GenderComputer():
 		'''Name lists per country'''
 		listOfCountries = ['Afghanistan', 'Albania', 'Australia', 'Belgium', 'Brazil', 
 						'Canada', 'Czech', 'Finland', 'Greece', 'Hungary', 'India', 'Iran', 
-						'Ireland', 'Israel', 'Italy', 'Latvia', 'Norway', 'Poland', 'Romania', 
+						'Ireland', 'Israel', 'Italy', 'Japan', 'Latvia', 'Norway', 'Poland', 'Romania',
 						'Russia', 'Slovenia', 'Somalia', 'Spain', 'Sweden', 'Turkey', 'UK', 
 						'Ukraine', 'USA']
 		for country in listOfCountries:
