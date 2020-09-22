@@ -40,6 +40,9 @@ The tool uses lists of `male` and `female` first names for different countries:
 	- http://www.learn-hebrew-names.com/Hebrew-names.aspx
 - Italy: 
 	- page 12 from http://www3.istat.it/salastampa/comunicati/non_calendario/20100318_00/testointegrale20100318.pdf
+- Japan:
+	- https://en.wikipedia.org/wiki/Category:Japanese_feminine_given_names
+	- https://en.wikipedia.org/wiki/Category:Japanese_masculine_given_names
 - Latvia:
 	- http://en.wiktionary.org/wiki/Appendix:Latvian_given_names
 	- http://en.wiktionary.org/wiki/Category:Latvian_male_given_names and http://en.wiktionary.org/wiki/Category:Latvian_female_given_names
