@@ -22,6 +22,9 @@
 	- http://www.sci.fi/~kajun/finns/
 - Frisia: 
 	- http://allenamen.nl/friese_namen/jongens_namen.html and http://allenamen.nl/friese_namen/meisjes_namen.html
+- Germany:
+	- https://en.wikipedia.org/w/index.php?title=Category:German_feminine_given_names
+	- https://en.wikipedia.org/w/index.php?title=Category:German_masculine_given_names
 - Greece: 
 	- http://www.fredonia.edu/faculty/emeritus/edwinlawson/greeknames/
 - India:
