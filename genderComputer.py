@@ -51,7 +51,7 @@ def formatOutput(gender, simplified=True):
 '''Load the male and female name lists for <country>'''
 def loadData(country, dataPath, hasHeader=True):
 	def loadGenderList(gender, country, dataPath, hasHeader):
-		fd = open(os.path.join(dataPath, '%s%sUTF8.csv' % (country, gender)), 'r')
+		fd = open(os.path.join(dataPath, '%s%sUTF8.csv' % (country, gender)), 'r', encoding="utf8")
 		reader = csv.reader(fd, delimiter=';', dialect=csv.excel)
 		names = {}
 		if hasHeader:
