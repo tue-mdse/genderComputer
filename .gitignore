@@ -10,3 +10,5 @@ nameLists/.svn/all-wcprops
 *.pyc
 
 0717-182/*
+
+dist/*.egg

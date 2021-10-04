@@ -23,4 +23,6 @@ setuptools.setup(
         'genderComputer': ['nameLists/*.*'],
     },
     include_package_data=True,
+    install_requires = ['unidecode==1.3.2','nameparser==1.0.6'],
+    zip_safe=False
 )

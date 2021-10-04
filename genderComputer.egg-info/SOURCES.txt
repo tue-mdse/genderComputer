@@ -10,6 +10,8 @@ genderComputer/nameUtils.py
 genderComputer.egg-info/PKG-INFO
 genderComputer.egg-info/SOURCES.txt
 genderComputer.egg-info/dependency_links.txt
+genderComputer.egg-info/not-zip-safe
+genderComputer.egg-info/requires.txt
 genderComputer.egg-info/top_level.txt
 nameLists/AfghanistanFemaleUTF8.csv
 nameLists/AfghanistanMaleUTF8.csv
