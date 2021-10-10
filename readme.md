@@ -17,6 +17,12 @@ The tool also uses the database of first names from all around the world provide
 - `python-nameparser` http://code.google.com/p/python-nameparser/
 - `unidecode` https://pypi.python.org/pypi/Unidecode/
 
+### Installation
+
+```
+python3 setup.py install
+```
+
 ### Usage
 
 To use the tool simply create a new `GenderComputer` object and call the `resolveGender` method on a (`name`, `country`) tuple:
