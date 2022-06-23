@@ -43,7 +43,7 @@ print(gc.resolveGender('Bogdan', None))
 print(gc.resolveGender('w35l3y', 'Brazil'))
 > male
 
-print gc.resolveGender('Ashley Maher', 'Australia')
+print(gc.resolveGender('Ashley Maher', 'Australia'))
 > female
 ```
 
